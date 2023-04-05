@@ -26,7 +26,6 @@ Content-Type: application/json
 
 {
   "name": "Davron",
-
   "surname": "Gulmurodov",
   "level": 2,
   "age": 26,

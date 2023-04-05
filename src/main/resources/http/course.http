@@ -1,0 +1,36 @@
+
+### course create
+POST localhost:8080/course/create
+Content-Type: application/json
+
+{
+  "name": "C#",
+  "price": 100000,
+  "duration": "8 oy"
+}
+
+### getById
+GET localhost:8080/course/getById/1
+Content-Type: application/json
+
+### getList
+GET localhost:8080/course/getList
+Content-Type: application/json
+
+### update
+PUT localhost:8080/course/update/3
+Content-Type: application/json
+
+{
+  "name": "Ruby",
+  "price": 500000,
+  "duration": "7 oy"
+}
+
+### delete
+DELETE localhost:8080/course/delete/3
+Content-Type: application/json
+
+### getByName
+GET localhost:8080/course/getByName/Java
+Content-Type: application/json

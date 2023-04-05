@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/student")
 public class StudentController {
-
     @Autowired
     private StudentService studentService;
 
@@ -85,10 +84,10 @@ public class StudentController {
 //    public ResponseEntity<?> getStudentByBetweenDate(@RequestParam("fromDate") LocalDateTime a,@RequestParam("toDate") LocalDateTime b){
 //        return ResponseEntity.ok(studentService.getBetWeenDate(a,b));
 //    }
-    @GetMapping("/getD")
-    private ResponseEntity<?> getDates(@RequestParam("fromDate") LocalDateTime localDateTime,
-                                       @RequestParam("dateTo") LocalDateTime localDateTime1) {
-        return ResponseEntity.ok(studentService.getdates(localDateTime, localDateTime1));
-    }
+//    @GetMapping("/getD")
+//    private ResponseEntity<?> getDates(@RequestParam("fromDate") LocalDateTime localDateTime,
+//                                       @RequestParam("toDate") LocalDateTime localDateTime1) {
+//        return ResponseEntity.ok(studentService.getdates(localDateTime, localDateTime1));
+//    }
 
 }

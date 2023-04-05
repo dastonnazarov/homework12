@@ -35,5 +35,5 @@ public class StudentEntity {
     private GenderStatus gender;
 
     @Column(name = "create_date")
-    private LocalDateTime createDate = LocalDateTime.now();
+    private LocalDateTime createDate;
 }
