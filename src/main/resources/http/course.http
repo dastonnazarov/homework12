@@ -4,9 +4,9 @@ POST localhost:8080/course/create
 Content-Type: application/json
 
 {
-  "name": "C#",
+  "name": "Java",
   "price": 100000,
-  "duration": "8 oy"
+  "duration": "7 oy"
 }
 
 ### getById
@@ -33,4 +33,12 @@ Content-Type: application/json
 
 ### getByName
 GET localhost:8080/course/getByName/Java
+Content-Type: application/json
+
+### getByPrice
+GET localhost:8080/course/getByPrice/1200000.0
+Content-Type: application/json
+
+### getCreateDate
+GET localhost:8080/course/getByCreateDateBetween?fromDate=2023-04-05T14:28:42.775214&toDate=2023-04-05T14:51:41.32928
 Content-Type: application/json

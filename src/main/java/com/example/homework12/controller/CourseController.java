@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -47,5 +48,21 @@ public class CourseController {
     public ResponseEntity<?> getByName(@PathVariable("name") String name) {
         List<CourseDTO> list = courseService.getByName(name);
         return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/getByPrice/{price}")
+    public ResponseEntity<?> getByPrice(@PathVariable("price") Double price) {
+        List<CourseDTO> list = courseService.getByPrice(price);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/getCreateDate/{createDate}")
+    public ResponseEntity<?> getByCreateDate(@PathVariable("createDate")LocalDateTime localDateTime){
+        return ResponseEntity.ok(courseService.getByCreateDate(localDateTime));
+    }
+
+    @GetMapping("/getByCreateDateBetween")
+    public ResponseEntity<?> getByCreateDateBetween(@RequestParam("fromDate") LocalDateTime a,@RequestParam("toDate") LocalDateTime b){
+        return ResponseEntity.ok(courseService.getByCreateDateBetween(a,b));
     }
 }

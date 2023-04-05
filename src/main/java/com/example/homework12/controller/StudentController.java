@@ -21,7 +21,6 @@ public class StudentController {
         StudentDTO dto = studentService.create(studentDTO);
         return ResponseEntity.ok(dto);
     }
-
     @GetMapping("/getList")
     public ResponseEntity<?> getList() {
         List<StudentDTO> list = studentService.getList();
@@ -80,14 +79,10 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getByCreateDate(createDate));
     }
 
-    //    @GetMapping("/getBetweenDate")
-//    public ResponseEntity<?> getStudentByBetweenDate(@RequestParam("fromDate") LocalDateTime a,@RequestParam("toDate") LocalDateTime b){
-//        return ResponseEntity.ok(studentService.getBetWeenDate(a,b));
-//    }
-//    @GetMapping("/getD")
-//    private ResponseEntity<?> getDates(@RequestParam("fromDate") LocalDateTime localDateTime,
-//                                       @RequestParam("toDate") LocalDateTime localDateTime1) {
-//        return ResponseEntity.ok(studentService.getdates(localDateTime, localDateTime1));
-//    }
+    @GetMapping("/getBetweenDate")
+    public ResponseEntity<?> getStudentByBetweenDate(@RequestParam("fromDate") LocalDateTime a, @RequestParam("toDate") LocalDateTime b) {
+        return ResponseEntity.ok(studentService.getBetWeenDate(a, b));
+    }
+
 
 }

@@ -1,0 +1,21 @@
+
+### create
+POST localhost:8080/studentCourseMark/create
+Content-Type: application/json
+
+{
+  "studentId": 1,
+  "courseId": 3,
+  "mark": 6
+}
+
+### update
+PUT localhost:8080/studentCourseMark/update/1
+Content-Type: application/json
+
+{
+  "studentId": 3,
+  "courseId": 2,
+  "mark": 5
+}
+

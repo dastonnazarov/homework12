@@ -14,5 +14,5 @@ public class CourseDTO {
    private String name;
    private Double price;
    private String duration;
-   private LocalDateTime createdDate = LocalDateTime.now();
+   private LocalDateTime createDate = LocalDateTime.now();
 }

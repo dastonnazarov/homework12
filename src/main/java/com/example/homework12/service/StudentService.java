@@ -201,8 +201,8 @@ public class StudentService {
         return list;
     }
 
-/* public List<StudentDTO> getBetWeenDate(LocalDateTime a,LocalDateTime b) {
-        List<StudentEntity> entityList = studentRepository.getBetWeenDate(a,b);
+ public List<StudentDTO> getBetWeenDate(LocalDateTime a,LocalDateTime b) {
+        List<StudentEntity> entityList = studentRepository.getByCreateDateBetween(a,b);
         List<StudentDTO> list = new LinkedList<>();
         entityList.forEach(entity -> {
             StudentDTO dto = new StudentDTO();
@@ -212,26 +212,11 @@ public class StudentService {
             dto.setLevel(entity.getLevel());
             dto.setAge(entity.getAge());
             dto.setGender(entity.getGender());
-           //dto.setCreateDate(entity.getCreateDate());
+            dto.setCreateDate(entity.getCreateDate());
             list.add(dto);
         });
         return list;
-    }*/
+    }
 
-   /* public List<StudentDTO> getdates(LocalDateTime createDate, LocalDateTime createDate1) {
-        List<StudentEntity> studentEntities = studentRepository.getAllByCreatedDateBetween(createDate,createDate1);
-        List<StudentDTO> studentDtoList = new LinkedList<>();
-        for (StudentEntity entity : studentEntities){
-            StudentDTO studentDto = new StudentDTO();
-            studentDto.setId(entity.getId());
-            studentDto.setName(entity.getName());
-            studentDto.setSurname(entity.getSurname());
-            studentDto.setLevel(entity.getLevel());
-            studentDto.setAge(entity.getAge());
-            studentDto.setGender(entity.getGender());
-            studentDto.setCreateDate(entity.getCreateDate());
-            studentDtoList.add(studentDto);
-        }
-        return studentDtoList;
-    }*/
+
 }

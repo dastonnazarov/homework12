@@ -21,6 +21,6 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Integer
 
     List<StudentEntity> getByCreateDate(LocalDateTime createDate);
 
-   // List<StudentEntity> getAllByCreatedDateBetween(LocalDateTime createDate, LocalDateTime createDate1);
+    List<StudentEntity> getByCreateDateBetween(LocalDateTime a, LocalDateTime b);
 }
 
