@@ -45,6 +45,7 @@ public class StudentService {
     public List<StudentDTO> getList() {
         Iterable<StudentEntity> iterable = studentRepository.findAll();
         List<StudentDTO> list = new LinkedList<>();
+
         iterable.forEach(entity -> {
             StudentDTO dto = new StudentDTO();
             dto.setId(entity.getId());
