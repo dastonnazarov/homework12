@@ -1,7 +1,10 @@
 package com.example.homework12.service;
 
 
+import com.example.homework12.dto.CourseD;
+import com.example.homework12.dto.StudentCourseD;
 import com.example.homework12.dto.StudentCourseMarkDTO;
+import com.example.homework12.dto.StudentD;
 import com.example.homework12.entity.CourseEntity;
 import com.example.homework12.entity.StudentCourseMarkEntity;
 import com.example.homework12.entity.StudentEntity;
@@ -9,6 +12,7 @@ import com.example.homework12.repository.StudentCourseMarkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -89,4 +93,34 @@ public class StudentCourseMarkService {
     }
 
 
+    public Boolean delete(Integer id) {
+        repository.deleteById(id);
+        return true;
+    }
+
+    public StudentCourseD getByIdDetail(Integer id) {
+        StudentCourseMarkEntity entity = get(id);
+        StudentCourseD dto = new StudentCourseD();
+
+        dto.setId(entity.getId());
+        dto.setStudentD(new StudentD(entity.getStudentId().getId(), entity.getStudentId().getName(), entity.getStudentId().getSurname()));
+        dto.setCourseD(new CourseD(entity.getCourseId().getId(), entity.getCourseId().getName()));
+        dto.setMark(entity.getMark());
+        dto.setCreateDate(entity.getCreateDate());
+        return dto;
+    }
+
+    public List<StudentCourseMarkDTO> getGivenDate(LocalDateTime date) {
+        List<StudentCourseMarkEntity> entities = repository.getByCreateDate(date);
+        List<StudentCourseMarkDTO> list = new LinkedList<>();
+        entities.forEach(entity -> {
+            StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
+            dto.setId(entity.getId());
+            dto.setStudentId(entity.getStudentId().getId());
+            dto.setCourseId(entity.getCourseId().getId());
+            dto.setMark(entity.getMark());
+            list.add(dto);
+        });
+        return list;
+    }
 }

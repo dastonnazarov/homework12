@@ -4,9 +4,9 @@ POST localhost:8080/studentCourseMark/create
 Content-Type: application/json
 
 {
-  "studentId": 1,
-  "courseId": 3,
-  "mark": 6
+  "studentId": 2,
+  "courseId": 2,
+  "mark": 20
 }
 
 ### update
@@ -27,3 +27,19 @@ Content-Type: application/json
 ### getAll
 GET localhost:8080/studentCourseMark/getAll
 Content-Type: application/json
+
+
+### delete
+DELETE localhost:8080/studentCourseMark/delete/3
+Content-Type: application/json
+
+
+
+### getByIdDetail
+GET localhost:8080/studentCourseMark/getByIdDetail/5
+Content-Type: application/json
+
+
+### getGivenDate
+GET localhost:8080/studentCourseMark/getGivenDate/2023-04-06T15:32:09.966747
+Content-Type: application/json  //getGivenDate

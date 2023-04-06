@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -31,9 +32,27 @@ public class StudentCourseMarkController {
         return ResponseEntity.ok(studentCourseMarkService.getById(id));
     }
 
+
+    @GetMapping("/getByIdDetail/{id}")
+    public ResponseEntity<?> getByIdDetail(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(studentCourseMarkService.getByIdDetail(id));
+    }
+
+
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll() {
         List<StudentCourseMarkDTO> list = studentCourseMarkService.getAll();
+        return ResponseEntity.ok(list);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+       return ResponseEntity.ok(studentCourseMarkService.delete(id));
+    }
+
+    @GetMapping("/getGivenDate/{createDate}")
+    public ResponseEntity<?> getGivenDate(@PathVariable("createDate") LocalDateTime createDate) {
+        List<StudentCourseMarkDTO> list = studentCourseMarkService.getGivenDate(createDate);
         return ResponseEntity.ok(list);
     }
 }
