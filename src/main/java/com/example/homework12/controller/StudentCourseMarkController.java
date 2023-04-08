@@ -55,4 +55,17 @@ public class StudentCourseMarkController {
         List<StudentCourseMarkDTO> list = studentCourseMarkService.getGivenDate(createDate);
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping("/getBetweenDate")
+    public ResponseEntity<?> getBetweenDate(@RequestParam("fromDate") LocalDateTime firstDate,@RequestParam("toDate") LocalDateTime secondDate) {
+        List<StudentCourseMarkDTO> list = studentCourseMarkService.getBetweenDate(firstDate,secondDate);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/getAllByDateDESC/{id}")
+    public ResponseEntity<?> getAllByDateDesc(@RequestParam("id")Integer id) {
+        Object list = studentCourseMarkService.getAllByDateDesc(id);
+        return ResponseEntity.ok(list);
+    }
+
 }

@@ -35,7 +35,6 @@ public class StudentCourseMarkService {
         return optional.get();
     }
 
-
     public StudentCourseMarkDTO create(StudentCourseMarkDTO dto) {
         StudentEntity existS = studentService.get(dto.getStudentId());
         CourseEntity existC = courseService.get(dto.getCourseId());
@@ -92,7 +91,6 @@ public class StudentCourseMarkService {
         return dtoList;
     }
 
-
     public Boolean delete(Integer id) {
         repository.deleteById(id);
         return true;
@@ -122,5 +120,36 @@ public class StudentCourseMarkService {
             list.add(dto);
         });
         return list;
+    }
+
+    public List<StudentCourseMarkDTO> getBetweenDate(LocalDateTime firstDate, LocalDateTime secondDate) {
+       List<StudentCourseMarkEntity> list = repository.getByCreateDateBetween(firstDate,secondDate);
+       List<StudentCourseMarkDTO>dtoList = new LinkedList<>();
+
+       list.forEach(bDate->{
+           StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
+           dto.setId(bDate.getId());
+           dto.setStudentId(bDate.getStudentId().getId());
+           dto.setCourseId(bDate.getCourseId().getId());
+           dto.setMark(bDate.getMark());
+           dto.setCreateDate(bDate.getCreateDate());
+           dtoList.add(dto);
+       });
+       return dtoList;
+    }
+
+    public Object getAllByDateDesc(Integer id) {
+        Iterable<StudentCourseMarkEntity> all =  repository.findAllByStudentIdOrderByCreateDateDesc(id);
+        List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
+        all.forEach(entity -> {
+            StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
+            dto.setId(entity.getId());
+            dto.setStudentId(entity.getStudentId().getId());
+            dto.setCourseId(entity.getCourseId().getId());
+            dto.setMark(entity.getMark());
+            dto.setCreateDate(entity.getCreateDate());
+            dtoList.add(dto);
+        });
+        return dtoList;
     }
 }

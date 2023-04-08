@@ -1,11 +1,6 @@
 package com.example.homework12.dto;
 
-import com.example.homework12.entity.CourseEntity;
-import com.example.homework12.entity.StudentEntity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
