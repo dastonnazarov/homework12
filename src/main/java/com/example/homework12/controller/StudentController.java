@@ -1,9 +1,11 @@
 package com.example.homework12.controller;
 
 import com.example.homework12.dto.StudentDTO;
+import com.example.homework12.dto.StudentFilterRequestDTO;
 import com.example.homework12.enums.GenderStatus;
 import com.example.homework12.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ public class StudentController {
         StudentDTO dto = studentService.create(studentDTO);
         return ResponseEntity.ok(dto);
     }
+
     @GetMapping("/getList")
     public ResponseEntity<?> getList() {
         List<StudentDTO> list = studentService.getList();
@@ -82,6 +85,29 @@ public class StudentController {
     @GetMapping("/getBetweenDate")
     public ResponseEntity<?> getStudentByBetweenDate(@RequestParam("fromDate") LocalDateTime a, @RequestParam("toDate") LocalDateTime b) {
         return ResponseEntity.ok(studentService.getBetWeenDate(a, b));
+    }
+
+    @GetMapping(value = "/test")
+    public ResponseEntity<?> test() {
+        studentService.pagination(1,2);
+        return ResponseEntity.ok().build();
+    }
+
+
+    @GetMapping(value = "/pagination")
+    public ResponseEntity<?> paging(@RequestParam(value = "page",defaultValue = "1")int page,
+                                    @RequestParam(value = "size",defaultValue = "31")int size) {
+        studentService.pagination(page,size);
+        return ResponseEntity.ok().build();
+    }
+
+
+    @PostMapping(value = "/pagination-name")
+    public ResponseEntity<?> pagingName(@RequestParam(value = "page",defaultValue = "1")int page,
+                                    @RequestParam(value = "size",defaultValue = "31")int size,
+                                        @RequestBody StudentFilterRequestDTO filter) {
+        studentService.PaginationWithName(filter.getName(),page,size);
+        return ResponseEntity.ok().build();
     }
 
 

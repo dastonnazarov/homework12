@@ -18,11 +18,11 @@ public class StudentCourseMarkEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_Id")
-    private StudentEntity studentId;
+    private StudentEntity student;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_Id")
-    private CourseEntity courseId;
+    private CourseEntity course;
 
     @Column(name = "mark")
     private Integer mark;

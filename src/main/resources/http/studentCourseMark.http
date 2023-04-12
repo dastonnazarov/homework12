@@ -1,17 +1,18 @@
 
 ### create
-POST localhost:8080/studentCourseMark/create
+POST localhost:8081/studentCourseMark/create
 Content-Type: application/json
 
 {
-  "studentId": 2,
-  "courseId": 2,
-  "mark": 20
+  "studentId": 1,
+  "courseId": 1,
+  "mark": 12
 }
 
 ### update
-PUT localhost:8080/studentCourseMark/update/2
+PUT localhost:8081/studentCourseMark/update/2
 Content-Type: application/json
+
 
 {
   "studentId": 1,
@@ -19,36 +20,95 @@ Content-Type: application/json
   "mark": 1
 }
 
+
 ### getById
-GET localhost:8080/studentCourseMark/getById/1
+GET localhost:8081/studentCourseMark/getById/1
 Content-Type: application/json
 
 
 ### getAll
-GET localhost:8080/studentCourseMark/getAll
+GET localhost:8081/studentCourseMark/getAll
 Content-Type: application/json
 
 
 ### delete
-DELETE localhost:8080/studentCourseMark/delete/3
+DELETE localhost:8081/studentCourseMark/delete/3
 Content-Type: application/json
 
 
 
 ### getByIdDetail
-GET localhost:8080/studentCourseMark/getByIdDetail/5
+GET localhost:8081/studentCourseMark/getByIdDetail/5
 Content-Type: application/json
 
 
 ### getGivenDate
-GET localhost:8080/studentCourseMark/getGivenDate/2023-04-06T15:32:09.966747
+GET localhost:8081/studentCourseMark/getGivenDate/2023-04-06T15:32:09.966747
 Content-Type: application/json  //getGivenDate
 
+
 ### getBetweenDate
-GET localhost:8080/studentCourseMark/getBetweenDate?fromDate=2023-04-05T16:57:52.145919&toDate=2023-04-06T15:30:53.283725
+GET localhost:8081/studentCourseMark/getBetweenDate?fromDate=2023-04-05T16:57:52.145919&toDate=2023-04-06T15:30:53.283725
 Content-Type: application/json
 
 
 ### getAllByDateDESC
-GET localhost:8080/studentCourseMark/getAllByDateDESC/
+GET localhost:8081/studentCourseMark/getAllByDateDESC?studentId=1&courseId=1
+Content-Type: application/json
+
+####getAllByStudentDateDesc
+GET localhost:8081/studentCourseMark/getAllByStudentDateDesc?studentId=1&courseId=1
+Content-Type: application/json
+
+
+####finalMarkAndCourse
+GET localhost:8081/studentCourseMark/finalMarkAndCourse/1
+Content-Type: application/json
+
+####findTopThreeMark
+GET localhost:8081/studentCourseMark/findTopThreeMark/1
+Content-Type: application/json
+
+
+####getStudentIdFirstMark
+GET localhost:8081/studentCourseMark/getStudentIdFirstMark/1
+Content-Type: application/json
+
+
+###getCourseIdFirstMark
+GET localhost:8081/studentCourseMark/getCourseIdFirstMarks?courseId=1&studentId=1
+Content-Type: application/json
+
+
+###getCourseIdBigFirstMarks
+GET localhost:8081/studentCourseMark/getCourseIdBigFirstMarks?courseId=1&studentId=1
+Content-Type: application/json
+
+###getAverageMarkAndCourseId
+GET localhost:8081/studentCourseMark/getAverageMarkAndCourseId/2
+Content-Type: application/json
+
+
+###getAvgMarkAndCourseId
+GET localhost:8081/studentCourseMark/getAvgMarkAndCourseId?id=2&cid=2
+Content-Type: application/json
+
+
+
+###getMarkOfGivenOver
+GET localhost:8081/studentCourseMark/getMarkOfGivenOver?courseId=2&mark=2
+Content-Type: application/json
+
+###getGivenCourseOfMaxMark
+GET localhost:8081/studentCourseMark/getGivenCourseOfMaxMark/1
+Content-Type: application/json
+
+
+
+###getGivenCourseOfAvgMark
+GET localhost:8081/studentCourseMark/getGivenCourseOfAvgMark/1
+Content-Type: application/json
+
+###getGivenCourseOfTakenMark
+GET localhost:8081/studentCourseMark/getGivenCourseOfTakenMark/1
 Content-Type: application/json
