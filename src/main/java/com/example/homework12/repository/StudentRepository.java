@@ -1,5 +1,6 @@
 package com.example.homework12.repository;
 
+import com.example.homework12.dto.StudentDTO;
 import com.example.homework12.entity.StudentEntity;
 import com.example.homework12.enums.GenderStatus;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,9 @@ import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends CrudRepository<StudentEntity,Integer>, PagingAndSortingRepository<StudentEntity,Integer> {
+
+
+
     List<StudentEntity> getByName(String name);
 
     List<StudentEntity> getBySurname(String surname);
@@ -34,6 +38,8 @@ public interface StudentRepository extends CrudRepository<StudentEntity,Integer>
 
     Page<StudentEntity> findAllByName(String name, Pageable pageable);
 
+    Page<StudentEntity> findAllByLevel(Integer level, Pageable pageable);
 
+    Page<StudentEntity> findAllByGender(String gender, Pageable pageable);
 }
 

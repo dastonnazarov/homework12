@@ -1,5 +1,4 @@
 package com.example.homework12.dto;
-import com.example.homework12.enums.GenderStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +14,7 @@ public class StudentDTO {
     private String surname;
     private Integer level;
     private Integer age;
-    private GenderStatus gender;
+    private String gender;
     private LocalDateTime createDate = LocalDateTime.now();
 
 }

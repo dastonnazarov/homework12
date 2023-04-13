@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -24,11 +25,11 @@ public class StudentController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/getList")
-    public ResponseEntity<?> getList() {
-        List<StudentDTO> list = studentService.getList();
-        return ResponseEntity.ok(list);
-    }
+//    @GetMapping("/getList")
+//    public ResponseEntity<?> getList() {
+//        List<StudentDTO> list = studentService.getList();
+//        return ResponseEntity.ok(list);
+//    }
 
 
     @GetMapping("/get/{id}")
@@ -89,26 +90,42 @@ public class StudentController {
 
     @GetMapping(value = "/test")
     public ResponseEntity<?> test() {
-        studentService.pagination(1,2);
+        studentService.pagination(1, 2);
         return ResponseEntity.ok().build();
     }
 
 
     @GetMapping(value = "/pagination")
-    public ResponseEntity<?> paging(@RequestParam(value = "page",defaultValue = "1")int page,
-                                    @RequestParam(value = "size",defaultValue = "31")int size) {
-        studentService.pagination(page,size);
+    public ResponseEntity<?> paging(@RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "size", defaultValue = "31") int size) {
+        studentService.pagination(page, size);
         return ResponseEntity.ok().build();
     }
 
 
     @PostMapping(value = "/pagination-name")
-    public ResponseEntity<?> pagingName(@RequestParam(value = "page",defaultValue = "1")int page,
-                                    @RequestParam(value = "size",defaultValue = "31")int size,
+    public ResponseEntity<?> pagingName(@RequestParam(value = "page", defaultValue = "1") int page,
+                                        @RequestParam(value = "size", defaultValue = "31") int size,
                                         @RequestBody StudentFilterRequestDTO filter) {
-        studentService.PaginationWithName(filter.getName(),page,size);
+        studentService.PaginationWithName(filter.getName(), page, size);
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping(value = "/pagination-level")
+    public ResponseEntity<?> pagingLevel(@RequestParam(value = "page", defaultValue = "1") int page,
+                                         @RequestParam(value = "size", defaultValue = "21") int size,
+                                         @RequestBody StudentFilterRequestDTO filter) {
+        studentService.paginationWithLevel(filter.getLevel(), page, size);
+        return ResponseEntity.ok().build();
+    }
 
+    //paginationWithGender
+
+    @PostMapping(value = "/pagination-gender")
+    public ResponseEntity<?> pagingGender(@RequestParam(value = "page") int page,
+                                         @RequestParam(value = "size") int size,
+                                         @RequestBody StudentFilterRequestDTO filter) {
+        studentService.paginationWithGender(filter.getGender(), page, size);
+        return ResponseEntity.ok().build();
+    }
 }

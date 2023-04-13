@@ -42,7 +42,7 @@ public class StudentService {
         return studentDTO;
     }
 
-    public List<StudentDTO> getList() {
+/*    public List<StudentDTO> getList() {
         Iterable<StudentEntity> iterable = studentRepository.findAll();
         List<StudentDTO> list = new LinkedList<>();
 
@@ -59,7 +59,7 @@ public class StudentService {
         });
 
         return list;
-    }
+    }*/
 
     public StudentDTO getById(Integer id) {
         StudentEntity entity = get(id);
@@ -240,11 +240,10 @@ public class StudentService {
         return response;
     }
 
-
-    public Page<StudentDTO> PaginationWithName(String name,int page, int size) {
+    public Page<StudentDTO> PaginationWithName(String name, int page, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
         Pageable paging = PageRequest.of(page - 1, size, sort);
-        Page<StudentEntity> pageObj =  studentRepository.findAllByName(name,paging);
+        Page<StudentEntity> pageObj = studentRepository.findAllByName(name, paging);
         long totalCount = pageObj.getTotalElements();
         List<StudentEntity> entityList = pageObj.getContent();
         List<StudentDTO> dtoList = new LinkedList<>();
@@ -259,6 +258,53 @@ public class StudentService {
         Page<StudentDTO> response = new PageImpl<>(dtoList, paging, totalCount);
         return response;
     }
+
+    public Page<StudentDTO> paginationWithLevel(Integer level, int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<StudentEntity> dtoPage = studentRepository.findAllByLevel(level, pageable);
+        long totalElements = dtoPage.getTotalElements();
+        List<StudentEntity> entityList = dtoPage.getContent();
+        List<StudentDTO> dtoList = new LinkedList<>();
+
+        for (StudentEntity entity : entityList) {
+            StudentDTO dto = new StudentDTO();
+            dto.setId(entity.getId());
+            dto.setName(entity.getName());
+            dto.setSurname(entity.getSurname());
+            dto.setLevel(entity.getLevel());
+            dto.setGender(entity.getGender());
+            dto.setCreateDate(entity.getCreateDate());
+            dtoList.add(dto);
+        }
+
+        Page<StudentDTO> response = new PageImpl<>(dtoList, pageable, totalElements);
+        return response;
+    }
+
+    public Page<StudentDTO> paginationWithGender(String gender, int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<StudentEntity> dtoPage = studentRepository.findAllByGender(gender, pageable);
+        long totalElements = dtoPage.getTotalElements();
+        List<StudentEntity> entityList = dtoPage.getContent();
+        List<StudentDTO> dtoList = new LinkedList<>();
+
+        for (StudentEntity entity : entityList) {
+            StudentDTO dto = new StudentDTO();
+            dto.setId(entity.getId());
+            dto.setName(entity.getName());
+            dto.setSurname(entity.getSurname());
+            dto.setAge(entity.getAge());
+            dto.setLevel(entity.getLevel());
+            dto.setGender(entity.getGender());
+            dto.setCreateDate(entity.getCreateDate());
+            dtoList.add(dto);
+        }
+        Page<StudentDTO> response = new PageImpl<>(dtoList, pageable, totalElements);
+        return response;
+    }
+
 
 
 

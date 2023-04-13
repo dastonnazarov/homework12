@@ -30,9 +30,8 @@ public class StudentEntity {
     @Column(name = "age")
     private Integer age;
 
-    @Enumerated(value = EnumType.STRING)
     @Column(name = "gender")
-    private GenderStatus gender;
+    private String gender;
 
     @Column(name = "create_date")
     private LocalDateTime createDate;

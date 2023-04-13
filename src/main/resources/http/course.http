@@ -1,11 +1,11 @@
 
 ### course create
-POST localhost:8080/course/create
+POST localhost:8081/course/create
 Content-Type: application/json
 
 {
-  "name": "Java",
-  "price": 100000,
+  "name": "ADROID",
+  "price": 250000,
   "duration": "7 oy"
 }
 
@@ -14,7 +14,7 @@ GET localhost:8080/course/getById/1
 Content-Type: application/json
 
 ### getList
-GET localhost:8080/course/getList
+GET localhost:8081/course/getList
 Content-Type: application/json
 
 ### update
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 {
   "name": "Ruby",
-  "price": 500000,
+  "price": 200000,
   "duration": "7 oy"
 }
 
@@ -42,3 +42,27 @@ Content-Type: application/json
 ### getCreateDate
 GET localhost:8080/course/getByCreateDateBetween?fromDate=2023-04-05T14:28:42.775214&toDate=2023-04-05T14:51:41.32928
 Content-Type: application/json
+
+
+
+### pagination
+GET localhost:8081/course/pagination?page=1&size=2
+Content-Type: application/json
+
+
+### pagination-price
+POST localhost:8081/course/pagination-price?page=2&size=1
+Content-Type: application/json
+
+{
+  "price": 100000
+}
+
+### pagination-price between
+POST localhost:8081/course/pagination-price-between?page=1&size=3
+Content-Type: application/json
+
+{
+  "fromPrice":250000.0,
+  "toPrice": 100000.0
+}

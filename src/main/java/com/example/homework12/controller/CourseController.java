@@ -1,9 +1,12 @@
 package com.example.homework12.controller;
 
 import com.example.homework12.dto.CourseDTO;
+import com.example.homework12.dto.CourseFilterRequestDTO;
 import com.example.homework12.dto.StudentDTO;
 import com.example.homework12.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,7 @@ import java.util.List;
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    private CourseFilterRequestDTO fil;
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody CourseDTO courseDTO) {
@@ -64,5 +68,27 @@ public class CourseController {
     @GetMapping("/getByCreateDateBetween")
     public ResponseEntity<?> getByCreateDateBetween(@RequestParam("fromDate") LocalDateTime a,@RequestParam("toDate") LocalDateTime b){
         return ResponseEntity.ok(courseService.getByCreateDateBetween(a,b));
+    }
+    @GetMapping("/pagination")
+    public ResponseEntity<?> pagination(@RequestParam("page") int  page,@RequestParam("size") int size){
+        return ResponseEntity.ok(courseService.pagination(page,size));
+    }
+
+
+
+    @PostMapping("/pagination-price")
+    public ResponseEntity<?> paginationPrice(@RequestParam("page") int  page,
+                                             @RequestParam("size") int size,
+                                             @RequestBody CourseFilterRequestDTO filter){
+      Page<CourseDTO> courseDTOS =  courseService.paginationPrice(filter.getPrice(),page,size);
+        return ResponseEntity.ok(courseDTOS);
+    }
+
+    @PostMapping("/pagination-price-between")
+    public ResponseEntity<?> paginationPriceBetween(@RequestParam("page") int  page,
+                                             @RequestParam("size") int size,
+                                             @RequestBody CourseFilterRequestDTO filter){
+        Page<CourseDTO> courseDTOS =  courseService.paginationPrice(filter.getFromPrice(),filter.getToPrice(),page,size);
+        return ResponseEntity.ok(courseDTOS);
     }
 }
