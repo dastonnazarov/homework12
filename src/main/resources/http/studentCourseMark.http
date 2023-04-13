@@ -4,9 +4,9 @@ POST localhost:8081/studentCourseMark/create
 Content-Type: application/json
 
 {
-  "studentId": 1,
+  "studentId": 2,
   "courseId": 1,
-  "mark": 12
+  "mark": 2
 }
 
 ### update
@@ -112,3 +112,27 @@ Content-Type: application/json
 ###getGivenCourseOfTakenMark
 GET localhost:8081/studentCourseMark/getGivenCourseOfTakenMark/1
 Content-Type: application/json
+
+###pagination-studentId
+POST localhost:8081/studentCourseMark/pagination-studentId?page=1&size=4
+Content-Type:  application/json
+
+{
+"studentId": 2
+}
+
+###pagination-coursetId
+POST localhost:8081/studentCourseMark/pagination-courseId?page=1&size=4
+Content-Type:  application/json
+
+{
+  "courseId": 3
+}
+
+###pagination-mark
+POST localhost:8081/studentCourseMark/pagination-mark?page=1&size=4
+Content-Type:  application/json
+
+{
+  "mark": 10
+}

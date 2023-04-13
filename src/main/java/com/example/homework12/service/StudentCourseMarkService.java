@@ -5,10 +5,9 @@ import com.example.homework12.dto.*;
 import com.example.homework12.entity.CourseEntity;
 import com.example.homework12.entity.StudentCourseMarkEntity;
 import com.example.homework12.entity.StudentEntity;
-import com.example.homework12.mapper.CourseInfoMapper;
 import com.example.homework12.repository.StudentCourseMarkRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,14 +19,14 @@ import java.util.Optional;
 @Service
 public class StudentCourseMarkService {
     @Autowired
-    private StudentCourseMarkRepository repository;
+    private StudentCourseMarkRepository studentCourseMarkRepository;
     @Autowired
     private StudentService studentService;
     @Autowired
     private CourseService courseService;
 
     public StudentCourseMarkEntity get(Integer id) {
-        Optional<StudentCourseMarkEntity> optional = repository.findById(id);
+        Optional<StudentCourseMarkEntity> optional = studentCourseMarkRepository.findById(id);
         if (optional.isEmpty()) {
             throw new ArithmeticException("Student not found: " + id);
         }
@@ -45,7 +44,7 @@ public class StudentCourseMarkService {
         entity.setMark(dto.getMark());
         entity.setCreateDate(dto.getCreateDate());
 
-        repository.save(entity);
+        studentCourseMarkRepository.save(entity);
         dto.setId(entity.getId());
         return dto;
     }
@@ -60,7 +59,7 @@ public class StudentCourseMarkService {
         entity.setCourse(courseId);
         entity.setMark(dto.getMark());
         entity.setCreateDate(dto.getCreateDate());
-        repository.save(entity);
+        studentCourseMarkRepository.save(entity);
         return "update successfully";
     }
 
@@ -79,7 +78,7 @@ public class StudentCourseMarkService {
 
     //4
     public List<StudentCourseMarkDTO> getAll() {
-        Iterable<StudentCourseMarkEntity> all = repository.findAll();
+        Iterable<StudentCourseMarkEntity> all = studentCourseMarkRepository.findAll();
         List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
 
         all.forEach(entity -> {
@@ -96,7 +95,7 @@ public class StudentCourseMarkService {
 
     //5
     public Boolean delete(Integer id) {
-        repository.deleteById(id);
+        studentCourseMarkRepository.deleteById(id);
         return true;
     }
 
@@ -115,7 +114,7 @@ public class StudentCourseMarkService {
 
     //7
     public List<StudentCourseMarkDTO> getGivenDate(LocalDateTime date) {
-        List<StudentCourseMarkEntity> entities = repository.getByCreateDate(date);
+        List<StudentCourseMarkEntity> entities = studentCourseMarkRepository.getByCreateDate(date);
         List<StudentCourseMarkDTO> list = new LinkedList<>();
         entities.forEach(entity -> {
             StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
@@ -130,7 +129,7 @@ public class StudentCourseMarkService {
 
     //8
     public List<StudentCourseMarkDTO> getBetweenDate(LocalDateTime firstDate, LocalDateTime secondDate) {
-        List<StudentCourseMarkEntity> list = repository.getByCreateDateBetween(firstDate, secondDate);
+        List<StudentCourseMarkEntity> list = studentCourseMarkRepository.getByCreateDateBetween(firstDate, secondDate);
         List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
 
         list.forEach(bDate -> {
@@ -147,7 +146,7 @@ public class StudentCourseMarkService {
 
     //9
     public List<StudentCourseMarkDTO> getAllByDateDesc(Integer id, Integer mark) {
-        List<StudentCourseMarkEntity> all = repository.findAllByStudentIdAndMarkOrderByCreateDateDesc(id, mark);
+        List<StudentCourseMarkEntity> all = studentCourseMarkRepository.findAllByStudentIdAndMarkOrderByCreateDateDesc(id, mark);
         List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
         all.forEach(entity -> {
             StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
@@ -163,7 +162,7 @@ public class StudentCourseMarkService {
 
     //10
     public List<StudentCourseMarkDTO> getAllByStudentDateDesc(Integer id, Integer courseId) {
-        List<StudentCourseMarkEntity> all = repository.getAllByStudentIdAndCourseIdOrderByCreateDateDesc(id, courseId);
+        List<StudentCourseMarkEntity> all = studentCourseMarkRepository.getAllByStudentIdAndCourseIdOrderByCreateDateDesc(id, courseId);
         List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
         all.forEach(entity -> {
             StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
@@ -179,7 +178,7 @@ public class StudentCourseMarkService {
 
     //11
     public List<StudentCourseMarkDTO> getStudentIdEndMarks(Integer id) {
-        List<StudentCourseMarkEntity> entityList = repository.findTop1ByStudentIdOrderByMarkAsc(id);
+        List<StudentCourseMarkEntity> entityList = studentCourseMarkRepository.findTop1ByStudentIdOrderByMarkAsc(id);
         List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
         entityList.forEach(entity -> {
             StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
@@ -195,7 +194,7 @@ public class StudentCourseMarkService {
 
     //12
     public List<StudentCourseMarkDTO> getStudentIdThreeMarks(Integer id) {
-        List<StudentCourseMarkEntity> entityList = repository.findTop3ByStudentIdOrderByMarkDesc(id);
+        List<StudentCourseMarkEntity> entityList = studentCourseMarkRepository.findTop3ByStudentIdOrderByMarkDesc(id);
         List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
         entityList.forEach(entity -> {
             StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
@@ -211,7 +210,7 @@ public class StudentCourseMarkService {
 
     //13
     public List<StudentCourseMarkDTO> getStudentIdFirstMark(Integer id) {
-        List<StudentCourseMarkEntity> entityList = repository.findTop1ByStudentIdOrderByCreateDate(id);
+        List<StudentCourseMarkEntity> entityList = studentCourseMarkRepository.findTop1ByStudentIdOrderByCreateDate(id);
         List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
         entityList.forEach(entity -> {
             StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
@@ -227,7 +226,7 @@ public class StudentCourseMarkService {
     //14
 
     public List<StudentCourseMarkDTO> getCourseIdFirstMarks(Integer courseId, Integer studentId) {
-        List<StudentCourseMarkEntity> entityList = repository.findTop1ByStudentIdAndCourseIdOrderByCreateDate(courseId, studentId);
+        List<StudentCourseMarkEntity> entityList = studentCourseMarkRepository.findTop1ByStudentIdAndCourseIdOrderByCreateDate(courseId, studentId);
         List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
         entityList.forEach(entity -> {
             StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
@@ -243,7 +242,7 @@ public class StudentCourseMarkService {
 
     //15
     public List<StudentCourseMarkDTO> getCourseIdBigFirstMarks(Integer courseId, Integer studentId) {
-        List<StudentCourseMarkEntity> entityList = repository.findTop1ByStudentIdAndCourseIdOrderByMarkDesc(courseId, studentId);
+        List<StudentCourseMarkEntity> entityList = studentCourseMarkRepository.findTop1ByStudentIdAndCourseIdOrderByMarkDesc(courseId, studentId);
         List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
         entityList.forEach(entity -> {
             StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
@@ -266,38 +265,105 @@ public class StudentCourseMarkService {
     //17
     public Double getAverg(Integer a, Integer b) {
 
-        Double avg = repository.avgByMarkStudentAndCourseId(a, b);
+        Double avg = studentCourseMarkRepository.avgByMarkStudentAndCourseId(a, b);
         return avg;
     }
 
     //18
     public List<Integer> getMarkOfGivenOver(Integer courseId, Integer mark) {
-        List<Integer> integers = repository.orderMaxByMarkStudentId(courseId, mark);
+        List<Integer> integers = studentCourseMarkRepository.orderMaxByMarkStudentId(courseId, mark);
         return integers;
     }
 
     //19
     public Integer getGivenCourseOfMaxMark(Integer courseId) {
-        Integer max = repository.orderMaxByMarkCourseId(courseId);
+        Integer max = studentCourseMarkRepository.orderMaxByMarkCourseId(courseId);
         return max;
     }
 
     //20
     public Integer getGivenCourseOfAvgMark(Integer id) {
-        Integer max = repository.avgByMarkStudentAndCourseId(id);
+        Integer max = studentCourseMarkRepository.avgByMarkStudentAndCourseId(id);
         return max;
     }
 
 
     public Integer getGivenCourseOfTakenMark(Integer id) {
-        Integer max = repository.countByMarkStudentAndCourseId(id);
+        Integer max = studentCourseMarkRepository.countByMarkStudentAndCourseId(id);
         return max;
     }
 
 
-    public  void test(){
-        repository.findLastCourseMarkAsNative(1);
+    public void test() {
+        studentCourseMarkRepository.findLastCourseMarkAsNative(1);
     }
+
+    public Page<StudentCourseMarkDTO> paginationByGivenStudentId(Integer studentId, int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+
+        Page<StudentCourseMarkEntity> pageObj = studentCourseMarkRepository.findAllByStudentId(studentId, pageable);
+        long totalElements = pageObj.getTotalElements();
+        List<StudentCourseMarkEntity> entityList = pageObj.getContent();
+        List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
+
+        for (StudentCourseMarkEntity entity : entityList) {
+            StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
+            dto.setId(entity.getId());
+            dto.setStudentId(entity.getStudent().getId());
+            dto.setCourseId(entity.getCourse().getId());
+            dto.setMark(entity.getMark());
+            dto.setCreateDate(entity.getCreateDate());
+            dtoList.add(dto);
+        }
+        Page<StudentCourseMarkDTO> response = new PageImpl<>(dtoList, pageable, totalElements);
+        return response;
+    }
+
+    public Page<StudentCourseMarkDTO> paginationByGivenCourseId(Integer courseId, int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+
+        Page<StudentCourseMarkEntity> pageObj = studentCourseMarkRepository.findAllByCourseId(courseId, pageable);
+        long totalElements = pageObj.getTotalElements();
+        List<StudentCourseMarkEntity> entityList = pageObj.getContent();
+        List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
+
+        for (StudentCourseMarkEntity entity : entityList) {
+            StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
+            dto.setId(entity.getId());
+            dto.setStudentId(entity.getStudent().getId());
+            dto.setCourseId(entity.getCourse().getId());
+            dto.setMark(entity.getMark());
+            dto.setCreateDate(entity.getCreateDate());
+            dtoList.add(dto);
+        }
+        Page<StudentCourseMarkDTO> response = new PageImpl<>(dtoList, pageable, totalElements);
+        return  response;
+    }
+
+    public Page<StudentCourseMarkDTO> paginationByGivenMark(Integer mark, int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+
+        Page<StudentCourseMarkEntity> pageObj = studentCourseMarkRepository.findAllByMark(mark, pageable);
+        long totalElements = pageObj.getTotalElements();
+        List<StudentCourseMarkEntity> entityList = pageObj.getContent();
+        List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
+
+        for (StudentCourseMarkEntity entity : entityList) {
+            StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
+            dto.setId(entity.getId());
+            dto.setStudentId(entity.getStudent().getId());
+            dto.setCourseId(entity.getCourse().getId());
+            dto.setMark(entity.getMark());
+            dto.setCreateDate(entity.getCreateDate());
+            dtoList.add(dto);
+        }
+        Page<StudentCourseMarkDTO> response = new PageImpl<>(dtoList, pageable, totalElements);
+        return  response;
+    }
+
 
 //    public void test(Integer id) {
 //        List<Object[]> courseObjList = repository.findLastCourseMarkAsNative(id);
@@ -313,15 +379,15 @@ public class StudentCourseMarkService {
 //        System.out.println("dasda");
 //    }
 
-//    public void test2(Integer id) {
-//    CourseInfoMapper courseInfoMapper= (CourseInfoMapper) repository.findLastCourseMarkAsNatives(id);
-//        if (courseInfoMapper != null) {
-//            CourseDTO courseDTO = new CourseDTO();
-//            courseDTO.setId(courseInfoMapper.getCId());
-//            courseDTO.setName(courseInfoMapper.getCName());
-//            System.out.println(courseDTO +" "+ courseInfoMapper.getMark());
-//        }
-//
-//        System.out.println("dasda");
-//    }
+/*    public void test2(Integer id) {
+    CourseInfoMapper courseInfoMapper= (CourseInfoMapper) repository.findLastCourseMarkAsNatives(id);
+        if (courseInfoMapper != null) {
+            CourseDTO courseDTO = new CourseDTO();
+            courseDTO.setId(courseInfoMapper.getCId());
+            courseDTO.setName(courseInfoMapper.getCName());
+            System.out.println(courseDTO +" "+ courseInfoMapper.getMark());
+        }
+
+        System.out.println("dasda");
+    }*/
 }

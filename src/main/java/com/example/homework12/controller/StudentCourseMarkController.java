@@ -1,7 +1,7 @@
 package com.example.homework12.controller;
 
+import com.example.homework12.dto.StudentCourseFilterDTO;
 import com.example.homework12.dto.StudentCourseMarkDTO;
-import com.example.homework12.dto.StudentDTO;
 import com.example.homework12.service.StudentCourseMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -158,6 +158,30 @@ public class StudentCourseMarkController {
 //    }
 
 
+    //StudentCourseMark pagination by given studentId.
+    @PostMapping(value = "/pagination-studentId")
+    public ResponseEntity<?>paginationByGivenStudentId(@RequestParam("page") int page,
+                                                       @RequestParam("size") int size,
+                                                       @RequestBody StudentCourseFilterDTO filterDTO){
+        return ResponseEntity.ok(studentCourseMarkService.paginationByGivenStudentId(filterDTO.getStudentId(),page,size));
+    }
+
+
+    //StudentCourseMark pagination by given courseId.
+    @PostMapping(value = "/pagination-courseId")
+    public ResponseEntity<?>paginationByGivenCourseId(@RequestParam("page") int page,
+                                                       @RequestParam("size") int size,
+                                                       @RequestBody StudentCourseFilterDTO filterDTO){
+        return ResponseEntity.ok(studentCourseMarkService.paginationByGivenCourseId(filterDTO.getCourseId(),page,size));
+    }
+
+    //StudentCourseMark pagination by given Mark.
+    @PostMapping(value = "/pagination-mark")
+    public ResponseEntity<?>paginationByGivenMark(@RequestParam("page") int page,
+                                                      @RequestParam("size") int size,
+                                                      @RequestBody StudentCourseFilterDTO filterDTO){
+        return ResponseEntity.ok(studentCourseMarkService.paginationByGivenMark(filterDTO.getMark(),page,size));
+    }
 
 
 

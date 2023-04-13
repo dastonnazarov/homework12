@@ -1,18 +1,18 @@
 package com.example.homework12.repository;
 
 import com.example.homework12.entity.StudentCourseMarkEntity;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface StudentCourseMarkRepository extends CrudRepository<StudentCourseMarkEntity, Integer> {
+public interface StudentCourseMarkRepository extends CrudRepository<StudentCourseMarkEntity, Integer>,
+        PagingAndSortingRepository<StudentCourseMarkEntity,Integer> {
     List<StudentCourseMarkEntity> getByCreateDate(LocalDateTime createDate);
 
     List<StudentCourseMarkEntity> getByCreateDateBetween(LocalDateTime firstDate, LocalDateTime secondDate);
@@ -66,4 +66,10 @@ public interface StudentCourseMarkRepository extends CrudRepository<StudentCours
 
     @Query(value = "select count(s.mark) from student_course_mark as s where course_id=:sid ", nativeQuery = true)
     Integer countByMarkStudentAndCourseId(@Param("sid") Integer id);
+
+    Page<StudentCourseMarkEntity> findAllByStudentId(Integer studentId, Pageable pageable);
+
+    Page<StudentCourseMarkEntity> findAllByCourseId(Integer courseId, Pageable pageable);
+
+    Page<StudentCourseMarkEntity> findAllByMark(Integer mark, Pageable pageable);
 }
