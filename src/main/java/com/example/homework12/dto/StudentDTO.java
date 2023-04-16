@@ -3,6 +3,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,6 +16,8 @@ public class StudentDTO {
     private Integer level;
     private Integer age;
     private String gender;
-    private LocalDateTime createDate = LocalDateTime.now();
+    private LocalDateTime createDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
 }

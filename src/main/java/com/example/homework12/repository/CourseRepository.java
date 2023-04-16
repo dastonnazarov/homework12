@@ -2,6 +2,7 @@ package com.example.homework12.repository;
 
 
 import com.example.homework12.dto.CourseDTO;
+import com.example.homework12.dto.CourseFilterRequestDTO;
 import com.example.homework12.entity.CourseEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +22,6 @@ public interface CourseRepository extends CrudRepository<CourseEntity,Integer>, 
 
     Page<CourseEntity> findAllByPrice(Pageable pageable, Double price);
     Page<CourseEntity> findAllByPriceBetween(Double fromPrice, Double toPrice, Pageable pageable);
+
+//    void filterCourse(CourseFilterRequestDTO courseDTO);
 }

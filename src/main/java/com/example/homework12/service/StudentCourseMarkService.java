@@ -5,6 +5,7 @@ import com.example.homework12.dto.*;
 import com.example.homework12.entity.CourseEntity;
 import com.example.homework12.entity.StudentCourseMarkEntity;
 import com.example.homework12.entity.StudentEntity;
+import com.example.homework12.repository.StudentCourseMarkCustomRepository;
 import com.example.homework12.repository.StudentCourseMarkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -24,6 +25,8 @@ public class StudentCourseMarkService {
     private StudentService studentService;
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private StudentCourseMarkCustomRepository studentCourseMarkCustomRepository;
 
     public StudentCourseMarkEntity get(Integer id) {
         Optional<StudentCourseMarkEntity> optional = studentCourseMarkRepository.findById(id);
@@ -339,7 +342,7 @@ public class StudentCourseMarkService {
             dtoList.add(dto);
         }
         Page<StudentCourseMarkDTO> response = new PageImpl<>(dtoList, pageable, totalElements);
-        return  response;
+        return response;
     }
 
     public Page<StudentCourseMarkDTO> paginationByGivenMark(Integer mark, int page, int size) {
@@ -361,7 +364,7 @@ public class StudentCourseMarkService {
             dtoList.add(dto);
         }
         Page<StudentCourseMarkDTO> response = new PageImpl<>(dtoList, pageable, totalElements);
-        return  response;
+        return response;
     }
 
 
@@ -390,4 +393,10 @@ public class StudentCourseMarkService {
 
         System.out.println("dasda");
     }*/
+
+
+    public List<StudentCourseMarkEntity> filter(StudentCourseFilterRequestDTO filterDTO) {
+        List<StudentCourseMarkEntity> list = studentCourseMarkCustomRepository.filter(filterDTO);
+        return list;
+    }
 }

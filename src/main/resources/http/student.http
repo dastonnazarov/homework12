@@ -4,9 +4,9 @@ POST localhost:8081/student/create
 Content-Type: application/json
 
 {
-  "name": "Sanjar",
-  "surname": "Kamolov",
-  "level": 3,
+  "name": "Anvar",
+  "surname": "Azimov",
+  "level": 2,
   "age": 24,
   "gender": "MALE"
 }
@@ -98,4 +98,17 @@ Content-Type: application/json
 
 {
   "gender": "MALE"
+}
+
+### student  FILTER test3
+GET localhost:8081/student/test3
+Content-Type: application/json
+
+
+### Student filter
+POST localhost:8081/student/filter
+Content-Type: application/json
+
+{
+  "name": "Sanjar"
 }

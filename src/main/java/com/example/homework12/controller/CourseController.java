@@ -3,6 +3,8 @@ package com.example.homework12.controller;
 import com.example.homework12.dto.CourseDTO;
 import com.example.homework12.dto.CourseFilterRequestDTO;
 import com.example.homework12.dto.StudentDTO;
+import com.example.homework12.dto.StudentFilterRequestDTO;
+import com.example.homework12.repository.CourseCustomRepository;
 import com.example.homework12.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +20,7 @@ import java.util.List;
 public class CourseController {
     @Autowired
     private CourseService courseService;
-    private CourseFilterRequestDTO fil;
+
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody CourseDTO courseDTO) {
@@ -91,4 +93,19 @@ public class CourseController {
         Page<CourseDTO> courseDTOS =  courseService.paginationPrice(filter.getFromPrice(),filter.getToPrice(),page,size);
         return ResponseEntity.ok(courseDTOS);
     }
+
+    @GetMapping("/test3")
+    public ResponseEntity<?> test3(){
+        courseService.test3();
+        return ResponseEntity.ok().build();
+    }
+
+
+    @PostMapping("/filter")
+    public ResponseEntity<?> filter(@RequestBody CourseFilterRequestDTO filterDTO){
+        courseService.filter(filterDTO);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

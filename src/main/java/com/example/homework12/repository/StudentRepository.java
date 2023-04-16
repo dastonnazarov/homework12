@@ -34,7 +34,7 @@ public interface StudentRepository extends CrudRepository<StudentEntity,Integer>
 
     void deleteById(Integer id);
 
-    Page<StudentEntity> findAll();
+
 
     Page<StudentEntity> findAllByName(String name, Pageable pageable);
 

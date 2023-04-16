@@ -5,8 +5,8 @@ Content-Type: application/json
 
 {
   "studentId": 2,
-  "courseId": 1,
-  "mark": 2
+  "courseId": 3,
+  "mark": 15
 }
 
 ### update
@@ -135,4 +135,13 @@ Content-Type:  application/json
 
 {
   "mark": 10
+}
+
+###filter
+POST localhost:8081/studentCourseMark/filter
+Content-Type:  application/json
+
+{
+  "fromMark": 2,
+  "toMark": 15
 }

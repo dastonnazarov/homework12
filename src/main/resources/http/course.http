@@ -4,9 +4,9 @@ POST localhost:8081/course/create
 Content-Type: application/json
 
 {
-  "name": "ADROID",
-  "price": 250000,
-  "duration": "7 oy"
+  "name": "C#",
+  "price": 2000,
+  "duration": "4 oy"
 }
 
 ### getById
@@ -65,4 +65,17 @@ Content-Type: application/json
 {
   "fromPrice":250000.0,
   "toPrice": 100000.0
+}
+
+### course  FILTER test3
+GET localhost:8081/course/test3
+Content-Type: application/json
+
+
+### course filter
+POST localhost:8081/course/filter
+Content-Type: application/json
+
+{
+  "name": "C#"
 }

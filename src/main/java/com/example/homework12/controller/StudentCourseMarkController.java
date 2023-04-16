@@ -1,6 +1,6 @@
 package com.example.homework12.controller;
 
-import com.example.homework12.dto.StudentCourseFilterDTO;
+import com.example.homework12.dto.StudentCourseFilterRequestDTO;
 import com.example.homework12.dto.StudentCourseMarkDTO;
 import com.example.homework12.service.StudentCourseMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,7 +162,7 @@ public class StudentCourseMarkController {
     @PostMapping(value = "/pagination-studentId")
     public ResponseEntity<?>paginationByGivenStudentId(@RequestParam("page") int page,
                                                        @RequestParam("size") int size,
-                                                       @RequestBody StudentCourseFilterDTO filterDTO){
+                                                       @RequestBody StudentCourseFilterRequestDTO filterDTO){
         return ResponseEntity.ok(studentCourseMarkService.paginationByGivenStudentId(filterDTO.getStudentId(),page,size));
     }
 
@@ -171,7 +171,7 @@ public class StudentCourseMarkController {
     @PostMapping(value = "/pagination-courseId")
     public ResponseEntity<?>paginationByGivenCourseId(@RequestParam("page") int page,
                                                        @RequestParam("size") int size,
-                                                       @RequestBody StudentCourseFilterDTO filterDTO){
+                                                       @RequestBody StudentCourseFilterRequestDTO filterDTO){
         return ResponseEntity.ok(studentCourseMarkService.paginationByGivenCourseId(filterDTO.getCourseId(),page,size));
     }
 
@@ -179,11 +179,15 @@ public class StudentCourseMarkController {
     @PostMapping(value = "/pagination-mark")
     public ResponseEntity<?>paginationByGivenMark(@RequestParam("page") int page,
                                                       @RequestParam("size") int size,
-                                                      @RequestBody StudentCourseFilterDTO filterDTO){
+                                                      @RequestBody StudentCourseFilterRequestDTO filterDTO){
         return ResponseEntity.ok(studentCourseMarkService.paginationByGivenMark(filterDTO.getMark(),page,size));
     }
 
 
-
+    //StudentCourseMark filter
+    @PostMapping(value = "/filter")
+    public ResponseEntity<?>filter(@RequestBody StudentCourseFilterRequestDTO filterDTO){
+        return ResponseEntity.ok(studentCourseMarkService.filter(filterDTO));
+    }
 
 }

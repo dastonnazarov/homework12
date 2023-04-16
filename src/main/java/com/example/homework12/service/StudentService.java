@@ -2,8 +2,10 @@ package com.example.homework12.service;
 
 
 import com.example.homework12.dto.StudentDTO;
+import com.example.homework12.dto.StudentFilterRequestDTO;
 import com.example.homework12.entity.StudentEntity;
 import com.example.homework12.enums.GenderStatus;
+import com.example.homework12.repository.StudentCustomMarkRepository;
 import com.example.homework12.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private StudentCustomMarkRepository studentCustomMarkRepository;
 
 
     public StudentDTO create(StudentDTO studentDTO) {
@@ -42,8 +46,8 @@ public class StudentService {
         return studentDTO;
     }
 
-/*    public List<StudentDTO> getList() {
-        Iterable<StudentEntity> iterable = studentRepository.findAll();
+    public List<StudentDTO> getList() {
+        List<StudentEntity> iterable = (List<StudentEntity>) studentRepository.findAll();
         List<StudentDTO> list = new LinkedList<>();
 
         iterable.forEach(entity -> {
@@ -59,7 +63,7 @@ public class StudentService {
         });
 
         return list;
-    }*/
+    }
 
     public StudentDTO getById(Integer id) {
         StudentEntity entity = get(id);
@@ -222,7 +226,7 @@ public class StudentService {
     public Page<StudentDTO> pagination(int page, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
-        Page<StudentEntity> pageObj = studentRepository.findAll();
+        Page<StudentEntity> pageObj = (Page<StudentEntity>) studentRepository.findAll();
         Long totalCount = pageObj.getTotalElements();
 
         List<StudentEntity> entityList = pageObj.getContent();
@@ -305,7 +309,14 @@ public class StudentService {
         return response;
     }
 
+    public List<StudentEntity> test3(){
+        List<StudentEntity> list = studentCustomMarkRepository.getAll();
+        return list;
+    }
 
 
-
+    public void filter(StudentFilterRequestDTO filterDTO) {
+        List<StudentEntity> list = studentCustomMarkRepository.filter(filterDTO);
+        System.out.println(list);
+    }
 }

@@ -1,9 +1,9 @@
 package com.example.homework12.service;
 
 import com.example.homework12.dto.CourseDTO;
-import com.example.homework12.dto.StudentDTO;
+import com.example.homework12.dto.CourseFilterRequestDTO;
 import com.example.homework12.entity.CourseEntity;
-import com.example.homework12.entity.StudentEntity;
+import com.example.homework12.repository.CourseCustomRepository;
 import com.example.homework12.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -19,6 +19,8 @@ public class CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private CourseCustomRepository courseCustomRepository;
 
     public CourseDTO create(CourseDTO courseDTO) {
         CourseEntity entity = new CourseEntity();
@@ -209,5 +211,15 @@ public class CourseService {
         }
         Page<CourseDTO> response = new PageImpl<>(dtoList,pageable,totalElements);
         return response;
+    }
+
+    public List<CourseEntity> test3(){
+        List<CourseEntity> list = courseCustomRepository.getAll();
+        return list;
+    }
+
+    public void filter(CourseFilterRequestDTO courseDTO) {
+        List<CourseEntity> courseEntities = courseCustomRepository.filter(courseDTO);
+        System.out.println(courseEntities);
     }
 }

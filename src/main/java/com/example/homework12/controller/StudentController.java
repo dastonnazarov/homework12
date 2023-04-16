@@ -5,7 +5,6 @@ import com.example.homework12.dto.StudentFilterRequestDTO;
 import com.example.homework12.enums.GenderStatus;
 import com.example.homework12.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +24,11 @@ public class StudentController {
         return ResponseEntity.ok(dto);
     }
 
-//    @GetMapping("/getList")
-//    public ResponseEntity<?> getList() {
-//        List<StudentDTO> list = studentService.getList();
-//        return ResponseEntity.ok(list);
-//    }
+    @GetMapping("/getList")
+    public ResponseEntity<?> getList() {
+        List<StudentDTO> list = studentService.getList();
+        return ResponseEntity.ok(list);
+    }
 
 
     @GetMapping("/get/{id}")
@@ -126,6 +125,17 @@ public class StudentController {
                                          @RequestParam(value = "size") int size,
                                          @RequestBody StudentFilterRequestDTO filter) {
         studentService.paginationWithGender(filter.getGender(), page, size);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/test3")
+    public ResponseEntity<?> test3() {
+        return ResponseEntity.ok(studentService.test3());
+    }
+
+    @PostMapping(value = "/filter")
+    public ResponseEntity<?> filter(@RequestBody StudentFilterRequestDTO filterDTO) {
+        studentService. filter(filterDTO);
         return ResponseEntity.ok().build();
     }
 }

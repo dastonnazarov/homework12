@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,5 +15,7 @@ public class CourseDTO {
    private String name;
    private Double price;
    private String duration;
+   private LocalDate fromDate;
+   private LocalDate toDate;
    private LocalDateTime createDate = LocalDateTime.now();
 }
